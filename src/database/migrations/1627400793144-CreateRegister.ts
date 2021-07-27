@@ -16,7 +16,7 @@ export class CreateRegister1627400793144 implements MigrationInterface {
                     type: "varchar"
                 },
                 {
-                    name: "typo",
+                    name: "type",
                     type: "varchar"
                 },
                 {

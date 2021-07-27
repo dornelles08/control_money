@@ -14,7 +14,7 @@ class CreateAccountController {
       value,
     });
 
-    return response.json(account);
+    return response.status(201).json(account);
   }
 }
 

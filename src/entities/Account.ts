@@ -18,8 +18,8 @@ class Account {
   @Column()
   user_id: string;
 
-  @JoinColumn({ name: "user_id" })
   @ManyToOne(() => User)
+  @JoinColumn({ name: "user_id" })
   userId: User;
 
   @Column()

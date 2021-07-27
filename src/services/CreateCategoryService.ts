@@ -1,11 +1,9 @@
 import { getCustomRepository } from "typeorm";
 import { CategoriesRepositories } from "../repositories/CategoriesRepositories";
-
 interface ICategoryRequest {
   name: string;
   type: string;
 }
-
 class CreateCategoryService {
   async execute({ name, type }: ICategoryRequest) {
     const categoriesRepository = getCustomRepository(CategoriesRepositories);
