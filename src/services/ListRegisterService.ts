@@ -13,9 +13,6 @@ class ListRegisterService {
       throw new Error("User not found")
     }
 
-    console.log(user_id);
-
-
     const registers = await registerRepository.find({ user_id });
 
     return registers;

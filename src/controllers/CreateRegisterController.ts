@@ -4,12 +4,12 @@ import { CreateRegisterService } from "../services/CreateRegisterService";
 class CreateRegisterController {
 
   async handle(request: Request, response: Response) {
-    const { account_id, card_id, category_id, description, type, value } = request.body;
+    const { account_id, card_id, category_id, description, type, value, date } = request.body;
     const { user_id } = request;
 
     const createRegisterService = new CreateRegisterService();
 
-    const register = await createRegisterService.execute({ account_id, user_id, card_id, category_id, description, type, value });
+    const register = await createRegisterService.execute({ account_id, user_id, card_id, category_id, description, type, value, date });
 
     return response.status(201).json(register);
   }

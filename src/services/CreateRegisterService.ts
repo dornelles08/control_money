@@ -13,15 +13,18 @@ interface IRegisterRequest {
   user_id: string;
   account_id: string;
   card_id: string;
+  date?: string
 }
 
 class CreateRegisterService {
-  async execute({ account_id, card_id, category_id, description, type, user_id, value }: IRegisterRequest) {
+  async execute({ account_id, card_id, category_id, description, type, user_id, value, date }: IRegisterRequest) {
     const registerRepository = getCustomRepository(RegisterRepositories);
     const userRepository = getCustomRepository(UsersRepositories);
     const categoryRepository = getCustomRepository(CategoriesRepositories);
     const accountRepository = getCustomRepository(AccountRepositories);
     const cardRepository = getCustomRepository(CardRepositories);
+
+    date = date.split("T")[0].replace("-", "/");
 
     const user = await userRepository.findOne({ id: user_id });
 
@@ -48,8 +51,15 @@ class CreateRegisterService {
         user,
         category,
         account_id,
-        account
+        account,
+        created_at: date ? new Date(date) : new Date()
+      };
+      if (type === "saida") {
+        account.value = account.value - value;
+      } else if (type === "entrada") {
+        account.value = account.value + value;
       }
+      await accountRepository.save(account);
     } else if (card_id) {
       const card = await cardRepository.findOne({ id: card_id, user_id });
       data = {
@@ -61,7 +71,8 @@ class CreateRegisterService {
         user,
         category,
         card_id,
-        card
+        card,
+        created_at: date ? new Date(date) : new Date()
       }
     }
 
