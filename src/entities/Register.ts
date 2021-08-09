@@ -18,7 +18,7 @@ class Register {
   type: string;
 
   @Column()
-  value: number;
+  value: string;
 
   @Column()
   category_id: string;
@@ -31,6 +31,9 @@ class Register {
 
   @Column()
   card_id?: string;
+
+  @Column()
+  created_at: Date
 
   @ManyToOne(() => Category)
   @JoinColumn({ name: "category_id" })
